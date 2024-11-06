@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace OrderProvider.Services;
 
-public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo)
+public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) : IOrderService
 {
     private readonly IOrderRepo _orderRepo = orderRepo;
     private readonly IOrderItemRepo _orderItemRepo = orderItemRepo;
