@@ -5,17 +5,17 @@ namespace OrderProvider.Factories;
 
 public static class OrderFactory
 {
-    public static OrderEntity Create(OrderDto order)
+    public static OrderEntity Create(OrderRequest orderRequest, int orderNumber)
     {
         // creates a new OrderEntity and creates an OrderItemEntity object for each OrderItemDto object in the OrderDto object
         return new OrderEntity
         {
-            CustomerId = order.CustomerId,
-            CustomerEmail = order.CustomerEmail,
-            OrderNumber = order.OrderNumber,
-            OrderDate = order.OrderDate,
-            TotalAmount = order.OrderItems.Sum(x => x.Price * x.Quantity),
-            OrderItems = order.OrderItems.Select(Create).ToList()
+            CustomerId = orderRequest.CustomerId,
+            CustomerEmail = orderRequest.CustomerEmail,
+            OrderNumber = orderNumber,
+            OrderDate = DateTime.UtcNow,
+            TotalAmount = orderRequest.OrderItems.Sum(x => x.Price * x.Quantity),
+            OrderItems = orderRequest.OrderItems.Select(Create).ToList()
         };
     }
 
