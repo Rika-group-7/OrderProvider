@@ -19,10 +19,42 @@ public static class OrderFactory
         };
     }
 
-    // creates a new OrderItemEntity object from every single OrderItemDto object in the OrderDto object
+    public static OrderDto Create(OrderEntity order)
+    {
+        // creates a new OrderDto object and creates an OrderItemDto object for each OrderItemEntity object in the OrderEntity object
+        return new OrderDto
+        {
+            CustomerId = order.CustomerId,
+            CustomerEmail = order.CustomerEmail,
+            OrderNumber = order.OrderNumber,
+            OrderDate = order.OrderDate,
+            TotalAmount = order.TotalAmount,
+            OrderItems = order.OrderItems.Select(Create).ToList()
+        };
+    }
+
+
+    // OrderItemEntity
+
+
     public static OrderItemEntity Create(OrderItemDto orderItem)
     {
+        // creates a new OrderItemEntity object from every single OrderItemDto object in the OrderDto object
         return new OrderItemEntity
+        {
+            ProductId = orderItem.ProductId,
+            ProductName = orderItem.ProductName,
+            Size = orderItem.Size,
+            Color = orderItem.Color,
+            Quantity = orderItem.Quantity,
+            Price = orderItem.Price
+        };
+    }
+
+    public static OrderItemDto Create(OrderItemEntity orderItem)
+    {
+        // creates a new OrderItemDto object from every single OrderItemEntity object in the OrderEntity object
+        return new OrderItemDto
         {
             ProductId = orderItem.ProductId,
             ProductName = orderItem.ProductName,
