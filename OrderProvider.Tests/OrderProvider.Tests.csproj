@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers_Tests\" />
-    <Folder Include="Repositories_Tests\" />
   </ItemGroup>
 
 </Project>
