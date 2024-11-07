@@ -73,7 +73,7 @@ OrderRequest will look like this:
 ```
 The OrderItems is a list of the class OrderItemDto, you can add as many of these as you want, just remember the `,` after each OrderItemDto.
 
-## Example: 
+## Example: **Note that this can be incorrect**
 ```
 // Example list of items purchased by the customer
 var purchasedProducts = new List<(string ProductId, string ProductName, string? Size, string? Color, int Quantity, decimal Price)>
