@@ -19,6 +19,16 @@ namespace OrderProvider.Contexts
                 .HasForeignKey(oi => oi.OrderEntityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<OrderEntity>(entity =>
+            {
+                entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+            });
+
+            modelBuilder.Entity<OrderItemEntity>(entity =>
+            {
+                entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+            });
+
             // Additional configurations can be added here
         }
     }
