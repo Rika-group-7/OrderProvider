@@ -77,22 +77,7 @@ public abstract class BaseRepo<TEntity>(DataContext context) : IBaseRepo<TEntity
         return null!;
     }
 
-    //UPDATE
 
-    public virtual async Task<TEntity> UpdateOneAsync(TEntity entity)
-    {
-        try
-        {
-            _context.Set<TEntity>().Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine("ERROR :: " + ex.Message);
-        }
-        return null!;
-    }
 
     //DELETE
 

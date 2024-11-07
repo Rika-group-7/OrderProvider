@@ -11,7 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
+
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 

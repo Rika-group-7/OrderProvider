@@ -6,7 +6,7 @@ namespace OrderProvider.Entities;
 public class OrderItemEntity
 {
     [Key]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Id { get; set; } = null!;
 
     [ForeignKey("Order")]
     public string OrderEntityId { get; set; } = null!;
@@ -19,6 +19,5 @@ public class OrderItemEntity
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 
-    // Navigation property to OrderEntity with lazy loading
-    public virtual OrderEntity Order { get; set; } = null!;
+    public OrderEntity Order { get; set; } = null!;
 }

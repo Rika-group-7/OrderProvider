@@ -30,8 +30,54 @@ public class OrderController : ControllerBase
             return Ok();
         }
 
-
-
         return Ok();
+    }
+
+    [HttpGet("getall")]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        var orders = await _orderService.GetAllOrdersAsync();
+        if (orders != null)
+        {
+            return Ok(orders);
+        }
+
+        return BadRequest("no orders found");
+    }
+
+    [HttpGet("ordernumber/{orderNumber}")]
+    public async Task<IActionResult> GetOrderByOrderNumber(int orderNumber)
+    {
+        var order = await _orderService.GetOrderByOrderNumberAsync(orderNumber);
+        if (order != null)
+        {
+            return Ok(order);
+        }
+
+        return BadRequest("order not found");
+    }
+
+    [HttpGet("customerId/{customerId}")]
+    public async Task<IActionResult> GetOrdersByCustomer(string customerId)
+    {
+        var orders = await _orderService.GetOrdersByCustomerIdAsync(customerId);
+        if (orders != null)
+        {
+            return Ok(orders);
+        }
+
+        return BadRequest("no orders found");
+    }
+
+    [HttpGet("CustomerEmail/{customerEmail}")]
+    public async Task<IActionResult> GetOrdersByCustomerEmail(string customerEmail)
+    {
+        var orders = await _orderService.GetOrdersByCustomerEmailAsync(customerEmail);
+        if (orders != null)
+        {
+            return Ok(orders);
+        }
+
+        return BadRequest("no orders found");
     }
 }

@@ -24,8 +24,8 @@ public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) : 
             var orderNumber = highestOrderNumber + 1;
 
             var orderEntity = OrderFactory.Create(orderRequest, orderNumber);
-            var saveOrder = await _orderRepo.CreateOneAsync(orderEntity);
-            if (saveOrder != null)
+            var result = await _orderRepo.CreateOneAsync(orderEntity);
+            if (result != null)
             {
                 return true;
             }
@@ -61,12 +61,12 @@ public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) : 
     }
 
 
-    // fetch an order by its id
-    public async Task<OrderDto> GetOrderByIdAsync(string orderId)
+    // fetch an order by the order number
+    public async Task<OrderDto> GetOrderByOrderNumberAsync(int orderNumber)
     {
         try
         {
-            var orderEntity = await _orderRepo.GetOneAsync(o => o.Id == orderId);
+            var orderEntity = await _orderRepo.GetOneAsync(o => o.OrderNumber == orderNumber);
             var order = OrderFactory.Create(orderEntity);
             return order;
         }
@@ -78,7 +78,7 @@ public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) : 
     }
 
     // fetch all orders by a customer
-    public async Task<IEnumerable<OrderDto>> GetOrdersByCustomerAsync(string customerId)
+    public async Task<IEnumerable<OrderDto>> GetOrdersByCustomerIdAsync(string customerId)
     {
         try
         {
@@ -94,18 +94,34 @@ public class OrderService(IOrderRepo orderRepo, IOrderItemRepo orderItemRepo) : 
         return null!;
     }
 
+    public async Task<IEnumerable<OrderDto>> GetOrdersByCustomerEmailAsync(string customerEmail)
+    {
+        try
+        {
+            var allOrders = await _orderRepo.GetAllAsync();
+            var customerOrders = allOrders.Where(o => o.CustomerEmail == customerEmail).ToList();
+            var orders = customerOrders.Select(OrderFactory.Create).ToList();
+            return orders;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("ERROR :: " + ex.Message);
+        }
+        return null!;
+    }
+
     #endregion
 
     #region DELETE
 
-    public async Task<bool> DeleteOrderAsync(string orderId)
+    public async Task<bool> DeleteOrderAsync(int orderNumber)
     {
         try
         {
-            var orderEntity = await _orderRepo.GetOneAsync(o => o.Id == orderId);
+            var orderEntity = await _orderRepo.GetOneAsync(o => o.OrderNumber == orderNumber);
             if (orderEntity != null)
             {
-                var deleteOrder = await _orderRepo.DeleteOneAsync(x => x.Id == orderId);
+                var deleteOrder = await _orderRepo.DeleteOneAsync(x => x.Id == orderEntity.Id);
                 if (deleteOrder)
                 {
                     return true;

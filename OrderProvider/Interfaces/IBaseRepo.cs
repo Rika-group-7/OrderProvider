@@ -9,6 +9,5 @@ namespace OrderProvider.Interfaces
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> UpdateOneAsync(TEntity entity);
     }
 }

@@ -5,9 +5,10 @@ namespace OrderProvider.Interfaces
     public interface IOrderService
     {
         Task<bool> CreateOrderAsync(OrderRequest orderRequest);
-        Task<bool> DeleteOrderAsync(string orderId);
+        Task<bool> DeleteOrderAsync(int orderNumber);
         Task<IEnumerable<OrderDto>> GetAllOrdersAsync();
-        Task<OrderDto> GetOrderByIdAsync(string orderId);
-        Task<IEnumerable<OrderDto>> GetOrdersByCustomerAsync(string customerId);
+        Task<OrderDto> GetOrderByOrderNumberAsync(int orderNumber);
+        Task<IEnumerable<OrderDto>> GetOrdersByCustomerEmailAsync(string customerEmail);
+        Task<IEnumerable<OrderDto>> GetOrdersByCustomerIdAsync(string customerId);
     }
 }
