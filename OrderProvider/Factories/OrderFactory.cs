@@ -41,7 +41,15 @@ public static class OrderFactory
             OrderNumber = order.OrderNumber,
             OrderDate = order.OrderDate,
             TotalAmount = order.TotalAmount,
-            OrderItems = order.OrderItems.Select(Create).ToList()
+            OrderItems = order.OrderItems.Select(item => new OrderItemDto
+            {
+                ProductId = item.ProductId,
+                ProductName = item.ProductName,
+                Size = item.Size,
+                Color = item.Color,
+                Quantity = item.Quantity,
+                Price = item.Price
+            }).ToList()
         };
     }
 
@@ -63,17 +71,17 @@ public static class OrderFactory
     //    };
     //}
 
-    public static OrderItemDto Create(OrderItemEntity orderItem)
-    {
-        // creates a new OrderItemDto object from every single OrderItemEntity object in the OrderEntity object
-        return new OrderItemDto
-        {
-            ProductId = orderItem.ProductId,
-            ProductName = orderItem.ProductName,
-            Size = orderItem.Size,
-            Color = orderItem.Color,
-            Quantity = orderItem.Quantity,
-            Price = orderItem.Price
-        };
-    }
+    //public static OrderItemDto Create(OrderItemEntity orderItem)
+    //{
+    //    // creates a new OrderItemDto object from every single OrderItemEntity object in the OrderEntity object
+    //    return new OrderItemDto
+    //    {
+    //        ProductId = orderItem.ProductId,
+    //        ProductName = orderItem.ProductName,
+    //        Size = orderItem.Size,
+    //        Color = orderItem.Color,
+    //        Quantity = orderItem.Quantity,
+    //        Price = orderItem.Price
+    //    };
+    //}
 }

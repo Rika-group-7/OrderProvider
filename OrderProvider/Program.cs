@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using OrderProvider.Contexts;
 using OrderProvider.Interfaces;
 using OrderProvider.Repositories;
 using OrderProvider.Services;
@@ -11,12 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
-
 builder.Services.AddScoped<IOrderItemRepo, OrderItemRepo>();
-
 builder.Services.AddScoped<IOrderService, OrderService>();
 
-
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
